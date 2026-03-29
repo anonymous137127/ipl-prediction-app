@@ -1,0 +1,66 @@
+/* Container */
+.dash-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle, #020617, #000);
+  font-family: "Courier New", monospace;
+}
+
+/* Main box */
+.dash-box {
+  background: rgba(2, 6, 23, 0.9);
+  border: 1px solid #00ffcc;
+  padding: 30px;
+  border-radius: 12px;
+  width: 350px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 255, 204, 0.4);
+}
+
+/* Title */
+.title {
+  color: #00ffcc;
+  margin-bottom: 20px;
+}
+
+/* Match card */
+.match-card {
+  border: 1px solid #00ffcc;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.match-card img {
+  width: 100%;
+  border-radius: 6px;
+}
+
+.match-card h3 {
+  color: #22c55e;
+  margin: 10px 0 5px;
+}
+
+.match-card p {
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+/* Button */
+.dash-box button {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #00ffcc;
+  background: transparent;
+  color: #00ffcc;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.dash-box button:hover {
+  background: #00ffcc;
+  color: black;
+}

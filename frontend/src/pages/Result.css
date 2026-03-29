@@ -1,0 +1,64 @@
+.result-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle, #020617, #000);
+  font-family: "Courier New", monospace;
+}
+
+.result-box {
+  background: rgba(2, 6, 23, 0.9);
+  border: 1px solid #00ffcc;
+  padding: 30px;
+  border-radius: 12px;
+  width: 320px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 255, 204, 0.4);
+}
+
+.result-box h2 {
+  color: #00ffcc;
+  margin-bottom: 20px;
+}
+
+.locked {
+  color: #f87171;
+  margin-bottom: 15px;
+}
+
+/* Button */
+.result-box button {
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: 1px solid #00ffcc;
+  background: transparent;
+  color: #00ffcc;
+  cursor: pointer;
+}
+
+.result-box button:hover {
+  background: #00ffcc;
+  color: black;
+}
+
+/* Result show */
+.result-show h1 {
+  color: #22c55e;
+  margin-bottom: 10px;
+  animation: glow 1.5s infinite alternate;
+}
+
+.result-show p {
+  color: #94a3b8;
+}
+
+/* Glow animation */
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px #22c55e;
+  }
+  to {
+    text-shadow: 0 0 20px #22c55e;
+  }
+}

@@ -1,0 +1,65 @@
+.pay-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle, #020617, #000);
+  font-family: "Courier New", monospace;
+}
+
+.pay-box {
+  background: rgba(2, 6, 23, 0.9);
+  border: 1px solid #00ffcc;
+  padding: 30px;
+  border-radius: 12px;
+  width: 320px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 255, 204, 0.4);
+}
+
+.pay-box h2 {
+  color: #00ffcc;
+  margin-bottom: 15px;
+}
+
+.pay-box img {
+  width: 200px;
+  margin: 10px 0;
+  border-radius: 8px;
+}
+
+.timer {
+  color: #22c55e;
+  margin: 10px 0;
+}
+
+.pay-box input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 6px;
+  border: 1px solid #00ffcc;
+  background: #000;
+  color: #00ffcc;
+}
+
+.pay-box button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 12px;
+  border-radius: 6px;
+  border: 1px solid #00ffcc;
+  background: transparent;
+  color: #00ffcc;
+  cursor: pointer;
+}
+
+.pay-box button:hover {
+  background: #00ffcc;
+  color: black;
+}
+
+.status {
+  color: #facc15;
+  margin-top: 10px;
+}
