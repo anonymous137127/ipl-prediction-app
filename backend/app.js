@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
+import paymentRoutes from "./routes/paymentRoutes.js"; // ✅ NEW
 import cors from "cors";
 
 dotenv.config();
@@ -15,7 +16,7 @@ const app = express();
 
 // allow frontend (important for Render + Netlify)
 app.use(cors({
-  origin: "*", // later we can restrict
+  origin: "*", // later restrict to your Netlify domain
   credentials: true
 }));
 
@@ -24,13 +25,16 @@ app.use(express.json());
 
 // ================= ROUTES =================
 
-// test route (very important for checking server)
+// test route
 app.get("/", (req, res) => {
   res.send("🚀 IPL Backend API is running...");
 });
 
 // auth routes
 app.use("/api/auth", authRoutes);
+
+// ✅ payment routes
+app.use("/api/payment", paymentRoutes);
 
 // ================= ERROR HANDLING =================
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Register.css";
+import { registerUser } from "../services/authService"; // ✅ import API
 
 function Register() {
   const [email, setEmail] = useState("");
@@ -9,7 +10,7 @@ function Register() {
 
   const navigate = useNavigate();
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (!email || !password || !confirm) {
       alert("Fill all fields");
       return;
@@ -20,8 +21,16 @@ function Register() {
       return;
     }
 
-    alert("Registered Successfully");
-    navigate("/");
+    try {
+      const res = await registerUser({ email, password });
+
+      alert("Registered Successfully ✅");
+      navigate("/");
+
+    } catch (err) {
+      console.log(err);
+      alert("Registration Failed ❌");
+    }
   };
 
   return (
