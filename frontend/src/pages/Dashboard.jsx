@@ -15,7 +15,7 @@ function Dashboard() {
             alt="match"
           />
 
-          <h3>RCB vs MI</h3>
+          <h3>CSK vs RR</h3>
           <p>Today IPL Match</p>
         </div>
 

@@ -1,8 +1,19 @@
 import express from "express";
-import { submitUTR } from "../controllers/paymentController.js";
+import {
+  submitPayment,
+  getAllPayments,
+  updatePaymentStatus
+} from "../controllers/paymentController.js";
 
 const router = express.Router();
 
-router.post("/submit", submitUTR);
+// ✅ submit UTR
+router.post("/submit", submitPayment);
+
+// ✅ get all payments (admin)
+router.get("/all", getAllPayments);
+
+// ✅ update status (approve/reject)
+router.post("/update", updatePaymentStatus);
 
 export default router;

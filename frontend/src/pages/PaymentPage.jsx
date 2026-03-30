@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import "./Payment.css";
+import axios from "axios";
 
 function PaymentPage() {
   const [utr, setUtr] = useState("");
   const [time, setTime] = useState(600); // 10 min
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
+  // timer
   useEffect(() => {
     if (time > 0) {
       const timer = setTimeout(() => setTime(time - 1), 1000);
@@ -13,14 +16,33 @@ function PaymentPage() {
     }
   }, [time]);
 
-  const handleSubmit = () => {
+  // submit UTR to backend
+  const handleSubmit = async () => {
     if (!utr) {
       alert("Enter UTR number");
       return;
     }
 
-    setSubmitted(true);
-    alert("Waiting for admin approval...");
+    try {
+      setLoading(true);
+
+      const res = await axios.post(
+        "https://ipl-backend-0emd.onrender.com/api/payment/submit",
+        {
+          utr: utr
+        }
+      );
+
+      console.log("Response:", res.data);
+
+      setSubmitted(true);
+      alert("Payment submitted successfully ✅");
+    } catch (err) {
+      console.error("Error:", err);
+      alert("Payment failed ❌");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -46,12 +68,19 @@ function PaymentPage() {
         {/* UTR input */}
         <input
           placeholder="Enter UTR Number"
+          value={utr}
           onChange={(e) => setUtr(e.target.value)}
         />
 
-        <button onClick={handleSubmit}>Submit UTR</button>
+        {/* Button */}
+        <button onClick={handleSubmit} disabled={loading}>
+          {loading ? "Submitting..." : "Submit UTR"}
+        </button>
 
-        {submitted && <p className="status">⏳ Verifying Payment...</p>}
+        {/* Status */}
+        {submitted && (
+          <p className="status">⏳ Verifying Payment...</p>
+        )}
       </div>
     </div>
   );

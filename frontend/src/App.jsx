@@ -4,6 +4,8 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import PaymentPage from "./pages/PaymentPage";
 import ResultPage from "./pages/ResultPage";
+import Admin from "./pages/Admin";
+
 
 function App() {
   return (
@@ -13,6 +15,7 @@ function App() {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/payment" element={<PaymentPage />} />
       <Route path="/result" element={<ResultPage />} />
+      <Route path="/admin" element={<Admin />} />
     </Routes>
   );
 }

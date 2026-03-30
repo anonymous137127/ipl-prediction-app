@@ -18,8 +18,8 @@ function ResultPage() {
           </>
         ) : (
           <div className="result-show">
-            <h1>🔥 RCB WILL WIN 🔥</h1>
-            <p>Confidence: 92%</p>
+            <h1>🔥 CSK WILL WIN 🔥</h1>
+            <p>Confidence: 100%</p>
           </div>
         )}
       </div>
