@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
-import "./Payment.css";
 import axios from "axios";
+import "./Payment.css";
+import { useNavigate } from "react-router-dom";
 
 function PaymentPage() {
   const [utr, setUtr] = useState("");
-  const [time, setTime] = useState(600); // 10 min
+  const [time, setTime] = useState(600);
   const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   // timer
   useEffect(() => {
@@ -16,7 +18,7 @@ function PaymentPage() {
     }
   }, [time]);
 
-  // submit UTR to backend
+  // submit
   const handleSubmit = async () => {
     if (!utr) {
       alert("Enter UTR number");
@@ -24,63 +26,69 @@ function PaymentPage() {
     }
 
     try {
-      setLoading(true);
-
-      const res = await axios.post(
+      await axios.post(
         "https://ipl-backend-0emd.onrender.com/api/payment/submit",
-        {
-          utr: utr
-        }
+        { utr }
       );
 
-      console.log("Response:", res.data);
-
       setSubmitted(true);
-      alert("Payment submitted successfully ✅");
+      alert("Payment submitted ✅");
     } catch (err) {
-      console.error("Error:", err);
-      alert("Payment failed ❌");
-    } finally {
-      setLoading(false);
+      alert("Error submitting payment ❌");
     }
   };
+
+  // 🔥 CHECK STATUS EVERY 1 SECOND
+  useEffect(() => {
+    let interval;
+
+    if (submitted) {
+      interval = setInterval(async () => {
+        try {
+          const res = await axios.get(
+            `https://ipl-backend-0emd.onrender.com/api/payment/status/${utr}`
+          );
+
+          console.log("Status:", res.data.status);
+
+          if (res.data.status === "approved") {
+            clearInterval(interval);
+            alert("Payment Approved 🎉");
+            navigate("/result"); // 🔥 redirect
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      }, 1000);
+    }
+
+    return () => clearInterval(interval);
+  }, [submitted, utr]);
 
   return (
     <div className="pay-container">
       <div className="pay-box">
         <h2>[ PAYMENT GATEWAY ]</h2>
 
-        {/* QR */}
-        <img
-          src="https://via.placeholder.com/200"
-          alt="QR"
-        />
+        <img src="https://via.placeholder.com/200" alt="QR" />
 
         <p>Scan & Pay</p>
 
-        {/* Timer */}
-        <h3 className="timer">
+        <h3>
           Time Left: {Math.floor(time / 60)}:
           {time % 60 < 10 ? "0" : ""}
           {time % 60}
         </h3>
 
-        {/* UTR input */}
         <input
-          placeholder="Enter UTR Number"
+          placeholder="Enter UTR"
           value={utr}
           onChange={(e) => setUtr(e.target.value)}
         />
 
-        {/* Button */}
-        <button onClick={handleSubmit} disabled={loading}>
-          {loading ? "Submitting..." : "Submit UTR"}
-        </button>
+        <button onClick={handleSubmit}>Submit UTR</button>
 
-        {/* Status */}
-        {submitted && (
-          <p className="status">⏳ Verifying Payment...</p>
-        )}
+        {submitted && <p>⏳ Waiting for approval...</p>}
       </div>
     </div>
   );

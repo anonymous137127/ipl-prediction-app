@@ -30,7 +30,7 @@ export const getAllPayments = async (req, res) => {
   }
 };
 
-// ✅ UPDATE STATUS (IMPORTANT 🔥)
+// ✅ UPDATE STATUS
 export const updatePaymentStatus = async (req, res) => {
   try {
     const { id, status } = req.body;
@@ -45,11 +45,24 @@ export const updatePaymentStatus = async (req, res) => {
       { new: true }
     );
 
+    res.json({ message: "Status updated", payment });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// 🔥 NEW: CHECK PAYMENT STATUS BY UTR
+export const checkPaymentStatus = async (req, res) => {
+  try {
+    const { utr } = req.params;
+
+    const payment = await Payment.findOne({ utr });
+
     if (!payment) {
       return res.status(404).json({ message: "Payment not found" });
     }
 
-    res.json({ message: "Status updated", payment });
+    res.json({ status: payment.status });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
